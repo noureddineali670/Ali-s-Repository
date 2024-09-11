@@ -16,50 +16,43 @@ namespace SupplierManagement.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Supplier -> PurchaseOrders
             modelBuilder.Entity<PurchaseOrder>()
                 .HasOne(po => po.Supplier)
                 .WithMany(s => s.PurchaseOrders)
                 .HasForeignKey(po => po.SupplierId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading delete
+                .OnDelete(DeleteBehavior.Restrict); 
 
-            // PurchaseOrder -> TotalAmount Precision
             modelBuilder.Entity<PurchaseOrder>()
                 .Property(po => po.TotalAmount)
-                .HasColumnType("decimal(18,2)");  // Set precision and scale for TotalAmount
+                .HasColumnType("decimal(18,2)"); 
 
-            // PurchaseOrderItem -> PurchaseOrder
             modelBuilder.Entity<PurchaseOrderItem>()
                 .HasOne(poi => poi.PurchaseOrder)
                 .WithMany(po => po.Items)
                 .HasForeignKey(poi => poi.PurchaseOrderId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading delete
+                .OnDelete(DeleteBehavior.Restrict);  
 
-            // PurchaseOrderItem -> UnitPrice Precision
             modelBuilder.Entity<PurchaseOrderItem>()
                 .Property(poi => poi.UnitPrice)
-                .HasColumnType("decimal(18,2)");  // Set precision and scale for UnitPrice
+                .HasColumnType("decimal(18,2)"); 
 
-            // PurchaseOrder -> PurchaseReceipts
             modelBuilder.Entity<PurchaseReceipt>()
                 .HasOne(pr => pr.PurchaseOrder)
                 .WithMany(po => po.PurchaseReceipts)
                 .HasForeignKey(pr => pr.PurchaseOrderId)
-                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading delete
+                .OnDelete(DeleteBehavior.Restrict);  
 
-            // PurchaseReceipt -> PurchaseReceiptItems
             modelBuilder.Entity<PurchaseReceiptItem>()
                 .HasOne(pri => pri.PurchaseReceipt)
                 .WithMany(pr => pr.Items)
                 .HasForeignKey(pri => pri.PurchaseReceiptId)
-                .OnDelete(DeleteBehavior.NoAction);  // Explicitly prevent cascading delete
+                .OnDelete(DeleteBehavior.NoAction);  
 
-            // PurchaseReceiptItem -> PurchaseOrderItem
             modelBuilder.Entity<PurchaseReceiptItem>()
                 .HasOne(pri => pri.PurchaseOrderItem)
                 .WithMany(poi => poi.PurchaseReceiptItems)
                 .HasForeignKey(pri => pri.PurchaseOrderItemId)
-                .OnDelete(DeleteBehavior.NoAction);  // Explicitly prevent cascading delete
+                .OnDelete(DeleteBehavior.NoAction);  
 
           modelBuilder.Entity<ItemLedgerEntry>()
                 .HasOne(ile => ile.PurchaseOrderItem)

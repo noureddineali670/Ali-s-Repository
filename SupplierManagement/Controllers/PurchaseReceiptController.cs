@@ -16,16 +16,13 @@ public class PurchaseReceiptController : ControllerBase
         _context = context;
     }
 
-    // 1. Create Purchase Receipt
     [HttpPost]
     public async Task<IActionResult> CreatePurchaseReceipt(CreatePurchaseReceiptDto dto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        // Check Purchase Order and other validation logic...
-
-        // Create the Purchase Receipt
+   
         var receipt = new PurchaseReceipt
         {
             PurchaseOrderId = dto.PurchaseOrderId,
@@ -40,14 +37,13 @@ public class PurchaseReceiptController : ControllerBase
         _context.PurchaseReceipts.Add(receipt);
         await _context.SaveChangesAsync();
 
-        // Create corresponding Item Ledger Entries
         foreach (var item in receipt.Items)
         {
             var itemLedgerEntry = new ItemLedgerEntry
             {
                 PurchaseOrderItemId = item.PurchaseOrderItemId,
                 EntryDate = DateTime.Now,
-                EntryType = "Receipt",  // We are recording a receipt here
+                EntryType = "Receipt",  
                 Quantity = item.ReceivedQuantity,
                 Remarks = "Item received in purchase receipt"
             };
@@ -61,7 +57,6 @@ public class PurchaseReceiptController : ControllerBase
     }
 
 
-    // 2. View Purchase Receipt by ID
     [HttpGet("{id}")]
     public async Task<ActionResult<PurchaseReceiptDetailsDto>> GetPurchaseReceiptById(int id)
     {

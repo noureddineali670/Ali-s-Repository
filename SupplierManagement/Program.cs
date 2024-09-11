@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Supplier Management API v1");
-        c.RoutePrefix = "swagger";  // Serve Swagger at /swagger
+        c.RoutePrefix = "swagger";  
     });
 
 }

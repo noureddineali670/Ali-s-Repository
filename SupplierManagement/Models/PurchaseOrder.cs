@@ -22,4 +22,6 @@ public partial class PurchaseOrder
     public virtual ICollection<PurchaseReceipt> PurchaseReceipts { get; set; } = new List<PurchaseReceipt>();
 
     public virtual Supplier Supplier { get; set; } = null!;
+
+    public ICollection<PurchaseOrderItem> Items { get; set; }
 }

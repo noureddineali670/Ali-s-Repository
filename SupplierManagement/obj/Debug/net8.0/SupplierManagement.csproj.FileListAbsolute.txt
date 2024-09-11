@@ -135,3 +135,4 @@ C:\Users\aynoureddine\source\repos\SupplierManagement\SupplierManagement\obj\Deb
 C:\Users\aynoureddine\source\repos\SupplierManagement\SupplierManagement\obj\Debug\net8.0\SupplierManagement.pdb
 C:\Users\aynoureddine\source\repos\SupplierManagement\SupplierManagement\obj\Debug\net8.0\SupplierManagement.genruntimeconfig.cache
 C:\Users\aynoureddine\source\repos\SupplierManagement\SupplierManagement\obj\Debug\net8.0\ref\SupplierManagement.dll
+C:\Users\aynoureddine\source\repos\SupplierManagement\SupplierManagement\obj\Debug\net8.0\SupplierManagement.sourcelink.json

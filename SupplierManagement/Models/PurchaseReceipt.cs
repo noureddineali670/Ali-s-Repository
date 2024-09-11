@@ -14,4 +14,6 @@ public partial class PurchaseReceipt
     public virtual PurchaseOrder PurchaseOrder { get; set; } = null!;
 
     public virtual ICollection<PurchaseReceiptItem> PurchaseReceiptItems { get; set; } = new List<PurchaseReceiptItem>();
+
+    public ICollection<PurchaseReceiptItem> Items { get; set; }
 }

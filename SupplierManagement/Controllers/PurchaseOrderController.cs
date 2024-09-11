@@ -16,18 +16,15 @@ public class PurchaseOrderController : ControllerBase
         _context = context;
     }
 
-    // 1. Create Purchase Order
     [HttpPost]
     public async Task<ActionResult<PurchaseOrder>> CreatePurchaseOrder(CreatePurchaseOrderDto dto)
     {
-        // Check if the supplier exists
         var supplier = await _context.Suppliers.FindAsync(dto.SupplierId);
         if (supplier == null)
         {
             return NotFound("Supplier not found.");
         }
 
-        // Calculate the total amount of the order
         decimal totalAmount = dto.Items.Sum(item => item.Quantity * item.UnitPrice);
 
         var purchaseOrder = new PurchaseOrder
@@ -50,7 +47,6 @@ public class PurchaseOrderController : ControllerBase
         return CreatedAtAction(nameof(GetPurchaseOrderById), new { id = purchaseOrder.Id }, purchaseOrder);
     }
 
-    // 2. Update Purchase Order Status
     [HttpPut("{id}/status")]
     public async Task<IActionResult> UpdatePurchaseOrderStatus(int id, UpdatePurchaseOrderStatusDto dto)
     {
@@ -60,14 +56,12 @@ public class PurchaseOrderController : ControllerBase
             return NotFound("Purchase order not found.");
         }
 
-        // Update the status
         purchaseOrder.Status = dto.Status;
         await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
-    // Get Purchase Order by ID
     [HttpGet("{id}")]
     public async Task<ActionResult<PurchaseOrder>> GetPurchaseOrderById(int id)
     {

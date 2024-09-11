@@ -19,7 +19,6 @@ namespace SupplierManagement.Models
         [Phone]
         public string Phone { get; set; }
 
-        // Navigation property for related PurchaseOrders
         public ICollection<PurchaseOrder> PurchaseOrders { get; set; } = new List<PurchaseOrder>();
     }
 }
